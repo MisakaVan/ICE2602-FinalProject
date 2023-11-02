@@ -4,3 +4,6 @@
 
 # index files created by lucene
 archive/cwh/**/*index*/
+
+# Docker Config File
+*.json
