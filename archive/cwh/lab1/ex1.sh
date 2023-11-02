@@ -1,0 +1,1 @@
+python ./codes/exercise1.py
