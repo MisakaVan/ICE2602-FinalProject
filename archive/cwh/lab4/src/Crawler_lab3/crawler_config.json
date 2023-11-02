@@ -1,0 +1,6 @@
+{
+  "seed": "https://www.sjtu.edu.cn",
+  "worker_count": 12,
+  "max_page_count": 5000,
+  "interval_ms": 1000
+}
