@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Result</title>
+</head>
+<body>
+    <h1>Search</h1>
+    <form action="result">
+        <label>keyword</label>
+        <input type="text" name="keyword"><br>
+        <input type="submit" name="Search">
+    </form>
+    <h1>Search Result for "{{ searchword }}"</h1>
+    <hr>
+    {% for i in lens %}
+        <p>
+        <a href= {{ url[i] }} > {{ title[i] }} </a>
+        <br>
+        <span>{{ content[i] }}</span>
+        <br>
+        <span>{{  url[i] }}</span>
+        </p>
+    {% endfor %}
+</body>
+</html>
