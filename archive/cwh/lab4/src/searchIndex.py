@@ -1,6 +1,7 @@
 import logging
 import os
 import time
+from typing import NamedTuple
 
 import lucene
 from java.io import File
@@ -13,6 +14,8 @@ from org.apache.lucene.index import DirectoryReader
 
 Url = str
 
+SearchResultItem = NamedTuple('searchItem',
+                              [('path', str), ('name', str), ('url', Url), ('title', str), ('score', float), ])
 
 class HtmlIndexSearcher:
     def __init__(self, store_dir: str, ):
@@ -43,6 +46,10 @@ class HtmlIndexSearcher:
                 print(f"title:\t{doc.get('title')}", )
                 print(f"Score:\t{score_doc.score}")
                 print('------')
+                # item: SearchResultItem = SearchResultItem(doc.get("path"), doc.get("name"), doc.get("url"),
+                #                                           doc.get("title"), score_doc.score)
+
+
             except:
                 continue
 
