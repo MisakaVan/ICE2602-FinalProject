@@ -1,0 +1,12 @@
+# Lab2
+在code/exercise1内是药智网相关任务
+
+在code/exercise2内是爬虫实现的相关任务
+
+crawler_sample 和 crawler_sample_reconstructed ，后者是前者的重构版本
+
+crawler_reconstructed是网络爬虫任务
+
+各个.sh脚本提供了快捷启动.py文件的方式。example1_final、crawler_sample_reconstructed支持通过命令行输入参数，请参照.sh脚本
+
+网络爬虫爬取的网页、index.txt都存放在crawler_cache目录下
