@@ -1,3 +1,6 @@
 # IDEs
 .idea/
 .vscode/
+
+# index files created by lucene
+archive/cwh/**/*index*/
