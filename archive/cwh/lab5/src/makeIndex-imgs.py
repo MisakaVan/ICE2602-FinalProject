@@ -155,7 +155,6 @@ class ImgIndexer:
 
                 soup = BeautifulSoup(content.decode("utf-8", errors="ignore"), "html.parser")
 
-                # todo
                 try:
                     title = soup.title.string.strip()
                 except:
