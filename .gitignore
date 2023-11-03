@@ -6,4 +6,4 @@
 archive/cwh/**/*index*/
 
 # Docker Config File
-*.json
+*.devcontainer.json

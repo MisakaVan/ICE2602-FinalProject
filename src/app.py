@@ -1,6 +1,7 @@
 # SJTU EE208
 
 from flask import Flask, redirect, render_template, request, url_for
+from searchIndex import HtmlIndexSearcher
 
 app = Flask(__name__)
 
@@ -16,7 +17,13 @@ def search_form():
 @app.route('/result', methods=['POST', 'GET'])
 def show_result():
     searchword = request.args.get('keyword')
-    title, url, content = ["title"], ["https://www.baidu.com"], ["一些内容"]
+    search_result = searcher.query(searchword)
+    title, url, content = [], [], []
+    print("len=", len(search_result))
+    for result in search_result:
+        title.append(result.title)
+        url.append(result.url)
+        content.append("...add content here...")
     lens = [i for i in range(len(title))]
     if request.method == 'POST':
         keyword = request.form['keyword']
@@ -25,4 +32,5 @@ def show_result():
 
 
 if __name__ == '__main__':
+    searcher = HtmlIndexSearcher(store_dir="./lucene_index/")
     app.run(debug=True, port=8080)
