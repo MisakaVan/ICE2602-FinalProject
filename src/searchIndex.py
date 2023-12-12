@@ -45,13 +45,13 @@ class HtmlIndexSearcher:
         for i, score_doc in enumerate(score_docs[:_display_size]):
             doc = self.searcher.doc(score_doc.doc)
             try:
-                print(f"Item {i + 1}:")
-                print(f'path:\t{doc.get("path")}')
-                print(f'name:\t{doc.get("name")}', )
-                print(f"url:\t{doc.get('url')}", )
-                print(f"title:\t{doc.get('title')}", )
-                print(f"Score:\t{score_doc.score}")
-                print('------')
+                # print(f"Item {i + 1}:")
+                # print(f'path:\t{doc.get("path")}')
+                # print(f'name:\t{doc.get("name")}', )
+                # print(f"url:\t{doc.get('url')}", )
+                # print(f"title:\t{doc.get('title')}", )
+                # print(f"Score:\t{score_doc.score}")
+                # print('------')
                 SearchResult = SearchResultItem(doc.get("path"), doc.get("name"), doc.get("url"),
                                                            doc.get("title"), score_doc.score)
                 result.append(SearchResult)

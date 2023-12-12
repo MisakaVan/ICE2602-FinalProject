@@ -1,10 +1,11 @@
 <!DOCTYPE html>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css', h=hashcode) }}">
 <html>
 <head>
     <title>Search</title>
 </head>
 <body>
-    <h1>Search</h1>
+    <h1 class="heading">Search</h1>
     <form action="result">
         <label>keyword</label>
         <input type="text" name="keyword"><br>
