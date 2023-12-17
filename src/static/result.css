@@ -1,0 +1,87 @@
+body {
+    font-family: Arial, sans-serif;
+    position: relative;
+}
+
+.search-container {
+    width: 450px;
+    height: 50px;
+    position: relative;
+    top: 0%;
+    left: 0%;
+    background-color: white;
+    border-radius: 24px;
+    margin-top: 30px;
+    margin-left: 180px;
+    z-index: 1;
+    box-shadow: 0 0 2px black;
+}
+
+input[type="text"] {
+    height: 30px;
+    width: 380px;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translate(0, -50%);
+    padding-left: 10px;
+    border: none;
+    background-color: transparent;
+    outline: none;
+}
+
+input[type="submit"] {
+    height: 30px;
+    width: 30px;
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translate(-100%, -50%);
+    padding-right: 10px;
+    border: none;
+    cursor: pointer;
+    background-image: url("img/search.png");
+    background-size: cover;
+    outline: none;
+}
+
+.result-section {
+    position: relative;
+    margin-left: 180px;
+    margin-top: 20px;
+}
+
+.result {
+    width: 700px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.title {
+    font-size: 20px;
+}
+
+.date {
+    color: #9195A3;
+    font-size: 14px;
+}
+
+.content {
+    font-size: 16px;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+a:link {
+    color: black;
+}
+
+a:visited {
+    color: blue;
+}

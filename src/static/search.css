@@ -1,0 +1,103 @@
+body {
+    font-family: Arial, sans-serif;
+    position: relative;
+}
+
+body::after{
+    content: "";
+    background-image: url("img/liverpool.png");
+    background-size: cover;
+    background-attachment: fixed;
+    opacity: 0.8;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: fixed;
+    z-index: -1; 
+
+}
+
+.search-container {
+    width: 450px;
+    height: 50px;
+    position: fixed;
+    top: 0%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    border-radius: 24px;
+    margin-top: 150px;
+    z-index: 1;
+    box-shadow: 0 0 5px black;
+}
+
+input[type="text"] {
+    height: 30px;
+    width: 380px;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translate(0, -50%);
+    padding-left: 10px;
+    border: none;
+    background-color: transparent;
+    outline: none;
+}
+
+input[type="submit"] {
+    height: 30px;
+    width: 30px;
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translate(-100%, -50%);
+    padding-right: 10px;
+    border: none;
+    cursor: pointer;
+    background-image: url("img/search.png");
+    background-size: cover;
+    outline: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+a:link {
+    color: black;
+}
+
+a:visited {
+    color: blue;
+}
+
+.news-section {
+    width: 600px;
+    height: 400px;
+    position: relative;
+    top: 100%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    background-color: gray;
+    opacity: 0.8;
+    margin-top: 1000px;
+    border-radius: 10px;
+}
+
+.left-column {
+    width: 200px;
+    height: 160px;
+    float: left;
+}
+
+.right-column {
+    width: 200px;
+    height: 160px;
+    float: right;
+}

@@ -1,15 +1,31 @@
 <!DOCTYPE html>
-<link rel="stylesheet" href="{{ url_for('static', filename='style.css', h=hashcode) }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='search.css', h=hashcode) }}">
 <html>
+
 <head>
     <title>Search</title>
 </head>
+
 <body>
-    <h1 class="heading">Search</h1>
-    <form action="result">
-        <label>keyword</label>
-        <input type="text" name="keyword"><br>
-        <input type="submit" name="Search">
-    </form>
+    <div class="search-container">
+        <form action="{{ url_for('show_result') }}" method="POST">
+            <input type="text" name="keyword" placeholder="Search...">
+            <input type="submit" value="">
+        </form>
+    </div>
+    <div class="news-section">
+        <h2>Hot News</h2>
+        {% for news in left_column %}
+        <div class="left-column">
+            <h3><a href="{{ news.url }}">{{ news.title }}</a></h3>
+        </div>
+        {% endfor %}
+        {% for news in right_column %}
+        <div class="right-column">
+            <h3><a href="{{ news.url }}">{{ news.title }}</a></h3>
+        </div>
+        {% endfor %}
+    </div>
 </body>
-</html> 
+
+</html>
