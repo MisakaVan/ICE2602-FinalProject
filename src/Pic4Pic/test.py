@@ -1,11 +1,29 @@
+import face_recognition
 import os
-
-def rename_images(folder_path):
-    image_files = [f for f in os.listdir(folder_path) if f.endswith('.jpg')]
-    for i, old_name in enumerate(image_files):
-        new_name = str(i) + '.jpg'
-        os.rename(os.path.join(folder_path, old_name), os.path.join(folder_path, new_name))
-
-if __name__ == '__main__':
-    folder_path = 'playground/TEST_DataBase/Folder'  # 替换成你的文件夹路径
-    rename_images(folder_path)
+ 
+path_know = 'playground\TEST_DataBase\Folder'
+path_unknow = 'playground\TEST_ToSearch'
+ 
+know = {}
+for path in os.listdir(path_know):
+    img_path = os.path.join(path_know, path)
+    img = face_recognition.load_image_file(img_path)
+    encoding = face_recognition.face_encodings(img)[0]
+    name = path.split('.')[0]
+    know[name] = encoding
+ 
+match = {}
+for path in os.listdir(path_unknow):
+    img = face_recognition.load_image_file(path_unknow+'/'+path)
+    encoding = face_recognition.face_encodings(img)[0]
+    name = path.split('.')[0]
+    match[name] = 'unknow'
+    for key, value in know.items():
+        if face_recognition.compare_faces([value],encoding)[0]:
+            match[name] = key
+            break
+ 
+print(match)
+ 
+for key, value in match.items():
+    print(key+' is '+ value)
