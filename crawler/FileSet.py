@@ -5,6 +5,8 @@ import json
 import sys
 import time
 import datetime
+from typing import List
+
 import loguru
 
 import numpy as np
@@ -111,7 +113,7 @@ class FileSet:
             self.filename_counter = state_dict['filename_counter']
         else:
             self.directory = directory
-            self.recorded_entries: list[FileSetRecordedEntry] = []
+            self.recorded_entries: List[FileSetRecordedEntry] = []
             self.filename_counter = 0
             self._clear_and_init_directory()
 
@@ -257,7 +259,7 @@ class FileSet:
             state_dict = json.load(f)
 
         with open(_filepath_entries, "r") as f:
-            _recorded_entries: list[FileSetRecordedEntry] = json.load(f)
+            _recorded_entries: List[FileSetRecordedEntry] = json.load(f)
             recorded_entries = [FileSetRecordedEntry(*entry) for entry in _recorded_entries]
 
         state_dict['recorded_entries'] = recorded_entries

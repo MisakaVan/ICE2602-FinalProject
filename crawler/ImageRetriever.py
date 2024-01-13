@@ -23,7 +23,7 @@ import time
 import urllib.parse
 import urllib.request
 from collections import namedtuple
-from typing import Optional
+from typing import Optional, List
 
 import requests
 
@@ -42,9 +42,9 @@ class ImageRetriever:
     directory: str
     fileset_directory: str
     done_count: int
-    failed: list[str]
-    excluded_extensions: list[str]
-    excluded_hosts: list[str]
+    failed: List[str]
+    excluded_extensions: List[str]
+    excluded_hosts: List[str]
 
     def __init__(self,
                  directory=None,
