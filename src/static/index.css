@@ -1,0 +1,103 @@
+header.masthead {
+    position: relative;
+    background-color: #343a40;
+    background: url("img/liverpool.png") no-repeat center center;
+    background-size: cover;
+    padding-top: 8rem;
+    padding-bottom: 34rem;
+  }
+header.masthead:before {
+  content: "";
+  position: absolute;
+  background-color: #1c375e;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  opacity: 0.5;
+}
+header.masthead h1, header.masthead .h1 {
+  font-size: 2rem;
+}
+
+.search-container {
+  width: 50%;
+  height: 50px;
+  position: relative;
+  top: 0%;
+  left: 0%;
+  background-color: white;
+  border-radius: 24px;
+  z-index: 1;
+  box-shadow: 0 0 5px black;
+  }
+  
+  input[type="text"] {
+  height: 30px;
+  width: 400px;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translate(0, -50%);
+  padding-left: 10px;
+  border: none;
+  background-color: transparent;
+  outline: none;
+  }
+  
+  input[type="submit"] {
+  height: 30px;
+  width: 30px;
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translate(-100%, -50%);
+  padding-right: 10px;
+  border: none;
+  cursor: pointer;
+  background-image: url("img/search.svg");
+  background-color: transparent;
+  background-size: cover;
+  outline: none;
+  }
+
+.select-container {
+  position: absolute;  /* Absolute positioning */
+  right: 60px;  /* Position from the right edge of the text input */
+  height: 50px;  /* Set the height of the select to 30px */
+  width: 140px;  /* Set the width of the select */
+  margin-right: 10px;
+}
+
+.searchbutton {
+  position: relative;
+  height: 30px;
+  width: 200px;
+  top: 0%;
+  left: 0%;
+  display: flex;
+  margin-bottom: 3px;
+  margin-left: 10px;
+}
+
+.main-container {
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  top: 0%;
+  left: 25%;
+  margin-top: 200px;
+}
+
+.btn-rad {
+  border-radius: 24px;
+  height: 30px;
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  margin-right: 5px;
+}
+
+.btn-opacity {
+  opacity: 0.8;
+}

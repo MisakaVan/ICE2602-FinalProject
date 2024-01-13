@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image for Image</title>
+    <link rel="stylesheet" href="static/Bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="static/search_img.css">
+    <link rel="stylesheet" href="static/style.css">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+
+            <a href="#" class="navbar-brand">Football News</a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navmenu1">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navmenu1">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('search_form', imagesearch=0) }}">Index</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('search_form', imagesearch=1) }}">Image</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('search_image') }}">Image for Image</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-3">
+        <h2>Try searching image for image by harnessing the power of AI</h2>
+    </div>
+
+    <div class="container mt-5">
+        <div class="d-flex flex-column align-items-center">
+            <div id="preview" class="mb-3 square"></div>
+            <form action="/upload" method="POST" enctype="multipart/form-data" class="mb-3 text-center">
+                <input type="file" id="imageUpload" name="file" accept="image/*" style="display: none;">
+                <button type="button" class="btn btn-primary"
+                    onclick="document.getElementById('imageUpload').click();">上传图片</button>
+                <button type="submit" class="btn btn-primary">搜索</button>
+            </form>
+
+        </div>
+    </div>
+
+    <script src="static/jquery/jquery-3.7.1.min.js"></script>
+    <script>
+        $("#imageUpload").change(function () {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $("#preview").css("background-image", "url(" + e.target.result + ")");
+                $("#preview").css("background-size", "cover");
+            }
+            reader.readAsDataURL(this.files[0]);
+        });
+    </script>
+
+    <script src="static/Bootstrap/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

@@ -1,25 +1,16 @@
-body {
-    font-family: Arial, sans-serif;
-    position: relative;
-}
-
 .search-container {
-    width: 450px;
+    width: 600px;
     height: 50px;
     position: relative;
-    top: 0%;
-    left: 0%;
     background-color: white;
     border-radius: 24px;
-    margin-top: 30px;
-    margin-left: 180px;
     z-index: 1;
-    box-shadow: 0 0 2px black;
-}
-
-input[type="text"] {
+    box-shadow: 0 0 5px black;
+    }
+    
+.search-container input[type="text"] {
     height: 30px;
-    width: 380px;
+    width: 430px;
     position: absolute;
     top: 50%;
     left: 0;
@@ -28,9 +19,9 @@ input[type="text"] {
     border: none;
     background-color: transparent;
     outline: none;
-}
-
-input[type="submit"] {
+    }
+    
+.search-container input[type="submit"] {
     height: 30px;
     width: 30px;
     position: absolute;
@@ -40,48 +31,50 @@ input[type="submit"] {
     padding-right: 10px;
     border: none;
     cursor: pointer;
-    background-image: url("img/search.png");
+    background-image: url("img/search.svg");
+    background-color: transparent;
     background-size: cover;
     outline: none;
+    }
+  
+.search-container select {
+      position: absolute;  /* Absolute positioning */
+      right: 60px;  /* Position from the right edge of the text input */
+      height: 50px;  /* Set the height of the select to 30px */
+      width: 140px;  /* Set the width of the select */
+      margin-right: 10px;
+  }
+
+.select-container {
+    width: 90px;
+    height: 40px;
+    margin-left: 5px;
+    margin-bottom: 5px;
+    display: flex;
 }
 
-.result-section {
-    position: relative;
-    margin-left: 180px;
-    margin-top: 20px;
-}
-
-.result {
-    width: 700px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
-
-.title {
+.result-title {
     font-size: 20px;
 }
 
-.date {
-    color: #9195A3;
+.result-date {
+    font-size: 12px;
+    color: gray;
+}
+
+.result-content {
     font-size: 14px;
 }
 
-.content {
-    font-size: 16px;
-}
-
-a {
+a.result-title {
     text-decoration: none;
-}
-
-a:hover {
-    text-decoration: underline;
-}
-
-a:link {
     color: black;
 }
 
-a:visited {
+a.result-title:hover {
+    text-decoration: underline;
+}
+
+a.result-title:visited {
     color: blue;
 }

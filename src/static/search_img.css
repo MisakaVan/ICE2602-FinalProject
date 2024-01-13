@@ -1,0 +1,10 @@
+.square {
+  width: 30vw;  /* Adjust this value to change the size of the square */
+  height: 0;
+  padding-bottom: 30vw;  /* This should be the same as width */
+  background-color: rgba(128, 128, 128, 0.5);
+  background-image: url("img/file-earmark-image.svg");
+  background-size: 25%;
+  background-repeat: no-repeat;
+  background-position: center;
+}

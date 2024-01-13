@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Result for "{{ keyword }}"</title>
+    <link rel="stylesheet" href="static/Bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="static/result.css">
+    <link rel="stylesheet" href="static/style.css">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container-fluid">
+
+            <a href="#" class="navbar-brand">Football News</a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navmenu1">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navmenu1">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('search_form', imagesearch=0) }}">Index</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('search_form', imagesearch=1) }}">Image</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('search_image') }}">Image for Image</a>
+                    </li>
+                </ul>
+            </div>
+            <form id="search-form" action="{{ url_for('show_result') }}" enctype="multipart/form-data" class="d-flex">
+                <input class="form-control me-2" type="search" name="keyword" placeholder="Search" aria-label="Search">
+                <select class="form-select me-2" name="category">
+                    <option value="all" selected>All</option>
+                    <option value="csl">CSL</option>
+                    <option value="epl">EPL</option>
+                    <option value="bundesliga">Bundesliga</option>
+                    <option value="laliga">La Liga</option>
+                    <option value="seriea">Serie A</option>
+                    <option value="ligue1">Ligue 1</option>
+                    <option value="ucl">UCL</option>
+                </select>
+                <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+        </div>
+    </nav>
+
+    <div class="search-container text-center text-white ms-5 mt-3">
+        <form action="{{ url_for('show_result') }}" enctype="multipart/form-data" class="d-flex justify-content-end">
+
+            <input type="text" name="keyword" placeholder="Search...">
+            <div class="select-container">
+                {% if imagesearch != 1 %}
+                <select name="category" class="form-select">
+                    <option value="all" selected>All</option>
+                    <option value="csl">CSL</option>
+                    <option value="epl">EPL</option>
+                    <option value="bundesliga">Bundesliga</option>
+                    <option value="laliga">La Liga</option>
+                    <option value="seriea">Serie A</option>
+                    <option value="ligue1">Ligue 1</option>
+                    <option value="ucl">UCL</option>
+                </select>
+                {% endif %}
+            </div>
+            <input type="submit" value="">
+        </form>
+    </div>
+    <div class="ms-5 mt-3" style="width: 50vw;">
+        <div class="row">
+            <div class="col-8 d-flex justify-content-start">
+                <h3>Searching Result for<span>"{{ keyword }}"</span></h3>
+            </div>
+            <div class="col-4 d-flex justify-content-end">
+                <div class="dropdown">
+                    <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown"
+                        aria-expanded="false" data-bs-auto-close="outside">
+                        filter
+                    </button>
+                    <div class="dropdown-menu" style="width: 420px; padding: 10px;">
+                        <form action="{{ url_for('show_result') }}" enctype="multipart/form-data"
+                            class="d-flex flex-column align-items-start">
+                            <input type="hidden" name="keyword" value="{{ keyword }}">
+                            <input type="hidden" name="category" value="{{ category }}">
+                            <input type="hidden" name="page" value="1">
+                            <input type="hidden" name="filt" value="1">
+                            <div style="display: flex; align-items: center;">
+                                <label for="start-date" style="width:80px">Start Date</label>
+                                <div class="select-container">
+                                    <select id="start-year" class="form-select" name="start_year"
+                                        onchange="showStartMonth();">
+                                        <option value="all" selected>all</option>
+                                        {% for year in range(2010, 2024) %}
+                                        <option value="{{ year }}">{{ year }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <span id="start-month-span" style="display: none;">/</span>
+                                <div class="select-container">
+                                    <select id="start-month" class="form-select" name="start_month"
+                                        style="display: none;" onchange="generateStartDays();">
+                                        <option value="all" selected>all</option>
+                                        {% for month in range(1, 13) %}
+                                        <option value="{{ month }}">{{ month }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <span id="start-day-span" style="display: none;">/</span>
+                                <div class="select-container">
+                                    <select id="start-day" class="form-select" name="start_day" style="display: none;">
+                                        <!-- Day options -->
+                                    </select>
+                                </div>
+                            </div>
+                            <div style="display: flex; align-items: center;">
+                                <label for="end-date" style="width:80px">End Date</label>
+                                <div class="select-container">
+                                    <select id="end-year" class="form-select" name="end_year" onchange="showEndMonth()">
+                                        <option value="all" selected>all</option>
+                                        {% for year in range(2010, 2024) %}
+                                        <option value="{{ year }}">{{ year }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <span id="end-month-span" style="display: none;">/</span>
+                                <div class="select-container">
+                                    <select id="end-month" class="form-select" name="end_month" style="display: none;"
+                                        onchange="generateEndDays();">
+                                        <option value="all" selected>all</option>
+                                        {% for month in range(1, 13) %}
+                                        <option value="{{ month }}">{{ month }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <span id="end-day-span" style="display: none;">/</span>
+                                <div class="select-container">
+                                    <select id="end-day" class="form-select" name="end_day" style="display: none;">
+                                        <!-- Day options -->
+                                    </select>
+                                </div>
+                            </div>
+                            <button class="btn btn-outline-success" type="submit">Search</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="ms-5 mt-3" style="width: 60vw">
+
+        <!-- Repeat this div for each search result -->
+        {% for result in results %}
+        <div class="card" style="border:none;">
+            <div class="card-body">
+                <a href="{{ result.url }}" class="card-title result-title">{{ result.title }}</a>
+                <p class="card-subtitle result-date">{{ result.date }}</p>
+                {% if result.containimg == 1 %}
+                <div class="row">
+                    <div class="col-3">
+
+                        <img src="{{ url_for('static', filename='images/' + result.filename) }}" class="card-img-top"
+                            alt="...">
+                    </div>
+                    <div class="col-9">
+                        <p class="card-text result-content">{{ result.content }}</p>
+                    </div>
+                </div>
+                {% else %}
+                <p class="card-text result-content">{{ result.content }}</p>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+            <!-- First page -->
+            {% if current_page > 1 %}
+            {% if filt == 1 %}
+            <li class="page-item"><a class="page-link"
+                    href="{{ url_for('show_result', keyword=keyword, category=category, page=1, filt=1, start_year=start_year, start_month=start_month, start_day=start_day, end_year=end_year, end_month=end_month, end_day=end_day) }}">1</a>
+            </li>
+            {% else %}
+            <li class="page-item"><a class="page-link"
+                    href="{{ url_for('show_result', keyword=keyword, category=category, page=1, filt=0) }}">1</a></li>
+            {% endif %}
+            {% endif %}
+
+            <!-- Ellipsis if necessary -->
+            {% if current_page > 3 %}
+            <li class="page-item disabled"><a class="page-link">...</a></li>
+            {% endif %}
+
+            <!-- Previous page -->
+            {% if current_page > 2 %}
+            {% if filt == 1 %}
+            <li class="page-item"><a class="page-link"
+                    href="{{ url_for('show_result', keyword=keyword, category=category, page=current_page-1, filt=1, start_year=start_year, start_month=start_month, start_day=start_day, end_year=end_year, end_month=end_month, end_day=end_day) }}">{{
+                    current_page-1 }}</a></li>
+            {% else %}
+            <li class="page-item"><a class="page-link"
+                    href="{{ url_for('show_result', keyword=keyword, category=category, page=current_page-1, filt=0) }}">{{
+                    current_page-1 }}</a></li>
+            {% endif %}
+            {% endif %}
+
+            <!-- Current page -->
+
+            <li class="page-item active"><a class="page-link"
+                    href="{{ url_for('show_result', keyword=keyword, category=category, page=current_page) }}">{{
+                    current_page }}</a></li>
+
+
+            <!-- Next page -->
+            {% if current_page < last_page - 1 %} {% if filt==1 %} <li class="page-item"><a class="page-link"
+                    href="{{ url_for('show_result', keyword=keyword, category=category, page=current_page+1, filt=1, start_year=start_year, start_month=start_month, start_day=start_day, end_year=end_year, end_month=end_month, end_day=end_day) }}">{{
+                    current_page+1 }}</a></li>
+                {% else %}
+                <li class="page-item"><a class="page-link"
+                        href="{{ url_for('show_result', keyword=keyword, category=category, page=current_page+1, filt=0) }}">{{
+                        current_page+1 }}</a></li>
+                {% endif %}
+                {% endif %}
+
+                <!-- Ellipsis if necessary -->
+                {% if last_page - current_page > 2 %}
+                <li class="page-item disabled"><a class="page-link">...</a></li>
+                {% endif %}
+
+                <!-- Last page -->
+                {% if current_page < last_page %} {% if filt==1 %} <li class="page-item"><a class="page-link"
+                        href="{{ url_for('show_result', keyword=keyword, category=category, page=last_page, filt=1, start_year=start_year, start_month=start_month, start_day=start_day, end_year=end_year, end_month=end_month, end_day=end_day) }}">{{
+                        last_page }}</a></li>
+                    {% else %}
+                    <li class="page-item"><a class="page-link"
+                            href="{{ url_for('show_result', keyword=keyword, category=category, page=last_page, filt=0) }}">{{
+                            last_page }}</a></li>
+                    {% endif %}
+                    {% endif %}
+        </ul>
+    </nav>
+
+    <script>
+        function showStartMonth() {
+            var year = document.getElementById('start-year').value;
+            if (year !== 'all') {
+                document.getElementById('start-month').value = 'all';
+                document.getElementById('start-month').style.display = 'inline';
+                document.getElementById('start-month-span').style.display = 'inline';
+            } else {
+                document.getElementById('start-month').style.display = 'none';
+                document.getElementById('start-month-span').style.display = 'none';
+                document.getElementById('start-day').style.display = 'none';
+                document.getElementById('start-day-span').style.display = 'none';
+            }
+        }
+
+        function showEndMonth() {
+            var year = document.getElementById('end-year').value;
+            if (year !== 'all') {
+                document.getElementById('end-month').value = 'all';
+                document.getElementById('end-month').style.display = 'inline';
+                document.getElementById('end-month-span').style.display = 'inline';
+            } else {
+                document.getElementById('end-month').style.display = 'none';
+                document.getElementById('end-month-span').style.display = 'none';
+                document.getElementById('end-day').style.display = 'none';
+                document.getElementById('end-day-span').style.display = 'none';
+            }
+        }
+
+        function generateStartDays() {
+            var year = document.getElementById('start-year').value;
+            var month = document.getElementById('start-month').value;
+            var daySelect = document.getElementById('start-day');
+
+            if (year !== 'all' && month != 'all') {
+                // Show the day select box
+                daySelect.style.display = 'inline';
+                document.getElementById('start-day-span').style.display = 'inline';
+
+                // Clear the current options
+                daySelect.innerHTML = '';
+
+                option_all = document.createElement('option');
+                option_all.value = 'all';
+                option_all.text = 'all';
+                daySelect.add(option_all);
+                document.getElementById('start-day').value = 'all';
+
+                // Get the number of days in the selected month
+                var days = new Date(year, month, 0).getDate();
+
+                // Generate the new options
+                for (var i = 1; i <= days; i++) {
+                    var option = document.createElement('option');
+                    option.value = i;
+                    option.text = i;
+                    daySelect.add(option);
+                }
+            } else {
+                // Hide the day select box
+                daySelect.style.display = 'none';
+                document.getElementById('start-day-span').style.display = 'none';
+            }
+        }
+        function generateEndDays() {
+            var year = document.getElementById('end-year').value;
+            var month = document.getElementById('end-month').value;
+            var daySelect = document.getElementById('end-day');
+
+            if (year && month) {
+                // Show the day select box
+                daySelect.style.display = 'inline';
+                document.getElementById('end-day-span').style.display = 'inline';
+
+                // Clear the current options
+                daySelect.innerHTML = '';
+
+                option_all = document.createElement('option');
+                option_all.value = 'all';
+                option_all.text = 'all';
+                daySelect.add(option_all);
+                document.getElementById('end-day').value = 'all';
+
+                // Get the number of days in the selected month
+                var days = new Date(year, month, 0).getDate();
+
+                // Generate the new options
+                for (var i = 1; i <= days; i++) {
+                    var option = document.createElement('option');
+                    option.value = i;
+                    option.text = i;
+                    daySelect.add(option);
+                }
+            } else {
+                // Hide the day select box
+                daySelect.style.display = 'none';
+                document.getElementById('end-day-span').style.display = 'none';
+            }
+        }
+    </script>
+    <script src="static/Bootstrap/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

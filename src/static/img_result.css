@@ -1,0 +1,116 @@
+#results {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.image-result {
+    flex: 1 0 auto;
+    margin: 10px;
+    max-width: 350px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.image-result img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.image-result a {
+    display: block;
+    text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.square {
+    width: 20vw;  /* Adjust this value to change the size of the square */
+    height: 0;
+    padding-bottom: 20vw;  /* This should be the same as width */
+    background-color: rgba(128, 128, 128, 0.5);
+    background-image: url("img/file-earmark-image.svg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
+.upload {
+    max-width: 30vw;  /* Adjust this value to change the size of the square */
+    max-height: 40vh;
+    object-fit: cover;
+}
+
+.text {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #000000;
+}
+
+.search-container {
+    width: 600px;
+    height: 50px;
+    position: relative;
+    background-color: white;
+    border-radius: 24px;
+    z-index: 1;
+    box-shadow: 0 0 5px black;
+    }
+    
+.search-container input[type="text"] {
+    height: 30px;
+    width: 430px;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translate(0, -50%);
+    padding-left: 10px;
+    border: none;
+    background-color: transparent;
+    outline: none;
+    }
+    
+.search-container input[type="submit"] {
+    height: 30px;
+    width: 30px;
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translate(-100%, -50%);
+    padding-right: 10px;
+    border: none;
+    cursor: pointer;
+    background-image: url("img/search.svg");
+    background-color: transparent;
+    background-size: cover;
+    outline: none;
+    }
+  
+.search-container select {
+      position: absolute;  /* Absolute positioning */
+      right: 60px;  /* Position from the right edge of the text input */
+      height: 50px;  /* Set the height of the select to 30px */
+      width: 140px;  /* Set the width of the select */
+      margin-right: 10px;
+  }
+
+a.text-deco {
+    text-decoration: none;
+    color: black;
+}
+
+a.text-deco:hover {
+    text-decoration: underline;
+}
+
+a.text-deco:visited {
+    color: blue;
+}
+
+.text-deco {
+    max-width: 70%; 
+    font-size: 18px;
+}

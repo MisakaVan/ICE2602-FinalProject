@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Football News</title>
+    <link rel="stylesheet" href="static/Bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="static/index.css">
+    <link rel="stylesheet" href="static/style.css">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+
+            <a href="#" class="navbar-brand">Football News</a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navmenu1">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navmenu1">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('search_form', imagesearch=0) }}">Index</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('search_form', imagesearch=1) }}">Image</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('search_image') }}">Image for Image</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <section>
+        <header class="masthead">
+            <div class="main-container">
+                <div class="searchbutton">
+                    {% if imagesearch != 1 %}
+                    <span class="btn btn-light btn-rad" style="cursor:text;">News</span>
+                    <a href="{{ url_for('search_form', imagesearch=1) }}"
+                        class="btn btn-light btn-opacity btn-rad">Image</a>
+                    {% else %}
+                    <a href="{{ url_for('search_form', imagesearch=0) }}"
+                        class="btn btn-light btn-opacity btn-rad">News</a>
+                    <span class="btn btn-light btn-rad" style="cursor:text;">Image</span>
+                    {% endif %}
+                </div>
+                <div class="search-container text-center text-white">
+                    <form action="{{ url_for('search_form') }}" method="POST" enctype="multipart/form-data"
+                        class="d-flex justify-content-end">
+
+                        <input type="text" name="keyword" placeholder="Search...">
+                        <div class="select-container">
+                            {% if imagesearch != 1 %}
+                            <select name="category" class="form-select" style="height: 100%;">
+                                <option value="all" selected>All</option>
+                                <option value="csl">CSL</option>
+                                <option value="epl">EPL</option>
+                                <option value="bundesliga">Bundesliga</option>
+                                <option value="laliga">La Liga</option>
+                                <option value="seriea">Serie A</option>
+                                <option value="ligue1">Ligue 1</option>
+                                <option value="ucl">UCL</option>
+                            </select>
+                            {% endif %}
+                        </div>
+                        <input type="submit" value="">
+                    </form>
+                </div>
+            </div>
+        </header>
+    </section>
+
+    <script src="static/Bootstrap/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
