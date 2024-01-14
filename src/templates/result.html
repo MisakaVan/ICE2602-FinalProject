@@ -11,6 +11,7 @@
 </head>
 
 <body>
+
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <div class="container-fluid">
 
@@ -50,202 +51,208 @@
         </div>
     </nav>
 
-    <div class="search-container text-center text-white ms-5 mt-3">
-        <form action="{{ url_for('show_result') }}" enctype="multipart/form-data" class="d-flex justify-content-end">
+    <div class="body-wrapper">
+        <div class="search-container text-center text-white ms-3 mt-3">
+            <form action="{{ url_for('show_result') }}" enctype="multipart/form-data"
+                class="d-flex justify-content-end">
 
-            <input type="text" name="keyword" placeholder="Search...">
-            <div class="select-container">
-                {% if imagesearch != 1 %}
-                <select name="category" class="form-select">
-                    <option value="all" selected>All</option>
-                    <option value="csl">CSL</option>
-                    <option value="epl">EPL</option>
-                    <option value="bundesliga">Bundesliga</option>
-                    <option value="laliga">La Liga</option>
-                    <option value="seriea">Serie A</option>
-                    <option value="ligue1">Ligue 1</option>
-                    <option value="ucl">UCL</option>
-                </select>
-                {% endif %}
-            </div>
-            <input type="submit" value="">
-        </form>
-    </div>
-    <div class="ms-5 mt-3" style="width: 50vw;">
-        <div class="row">
-            <div class="col-8 d-flex justify-content-start">
-                <h3>Searching Result for<span>"{{ keyword }}"</span></h3>
-            </div>
-            <div class="col-4 d-flex justify-content-end">
-                <div class="dropdown">
-                    <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown"
-                        aria-expanded="false" data-bs-auto-close="outside">
-                        filter
-                    </button>
-                    <div class="dropdown-menu" style="width: 420px; padding: 10px;">
-                        <form action="{{ url_for('show_result') }}" enctype="multipart/form-data"
-                            class="d-flex flex-column align-items-start">
-                            <input type="hidden" name="keyword" value="{{ keyword }}">
-                            <input type="hidden" name="category" value="{{ category }}">
-                            <input type="hidden" name="page" value="1">
-                            <input type="hidden" name="filt" value="1">
-                            <div style="display: flex; align-items: center;">
-                                <label for="start-date" style="width:80px">Start Date</label>
-                                <div class="select-container">
-                                    <select id="start-year" class="form-select" name="start_year"
-                                        onchange="showStartMonth();">
-                                        <option value="all" selected>all</option>
-                                        {% for year in range(2010, 2024) %}
-                                        <option value="{{ year }}">{{ year }}</option>
-                                        {% endfor %}
-                                    </select>
+                <input type="text" name="keyword" placeholder="Search...">
+                <div class="select-container">
+                    {% if imagesearch != 1 %}
+                    <select name="category" class="form-select">
+                        <option value="all" selected>All</option>
+                        <option value="csl">CSL</option>
+                        <option value="epl">EPL</option>
+                        <option value="bundesliga">Bundesliga</option>
+                        <option value="laliga">La Liga</option>
+                        <option value="seriea">Serie A</option>
+                        <option value="ligue1">Ligue 1</option>
+                        <option value="ucl">UCL</option>
+                    </select>
+                    {% endif %}
+                </div>
+                <input type="submit" value="">
+            </form>
+        </div>
+        <div class="ms-3 mt-3" style="width: 50vw;">
+            <div class="row">
+                <div class="col-8 d-flex justify-content-start">
+                    <h3>Searching Result for<span>"{{ keyword }}"</span></h3>
+                </div>
+                <div class="col-4 d-flex justify-content-end">
+                    <div class="dropdown">
+                        <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown"
+                            aria-expanded="false" data-bs-auto-close="outside">
+                            filter
+                        </button>
+                        <div class="dropdown-menu" style="width: 420px; padding: 10px;">
+                            <form action="{{ url_for('show_result') }}" enctype="multipart/form-data"
+                                class="d-flex flex-column align-items-start">
+                                <input type="hidden" name="keyword" value="{{ keyword }}">
+                                <input type="hidden" name="category" value="{{ category }}">
+                                <input type="hidden" name="page" value="1">
+                                <input type="hidden" name="filt" value="1">
+                                <div style="display: flex; align-items: center;">
+                                    <label for="start-date" style="width:80px">Start Date</label>
+                                    <div class="select-container">
+                                        <select id="start-year" class="form-select" name="start_year"
+                                            onchange="showStartMonth();">
+                                            <option value="all" selected>all</option>
+                                            {% for year in range(2010, 2024) %}
+                                            <option value="{{ year }}">{{ year }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                    <span id="start-month-span" style="display: none;">/</span>
+                                    <div class="select-container">
+                                        <select id="start-month" class="form-select" name="start_month"
+                                            style="display: none;" onchange="generateStartDays();">
+                                            <option value="all" selected>all</option>
+                                            {% for month in range(1, 13) %}
+                                            <option value="{{ month }}">{{ month }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                    <span id="start-day-span" style="display: none;">/</span>
+                                    <div class="select-container">
+                                        <select id="start-day" class="form-select" name="start_day"
+                                            style="display: none;">
+                                            <!-- Day options -->
+                                        </select>
+                                    </div>
                                 </div>
-                                <span id="start-month-span" style="display: none;">/</span>
-                                <div class="select-container">
-                                    <select id="start-month" class="form-select" name="start_month"
-                                        style="display: none;" onchange="generateStartDays();">
-                                        <option value="all" selected>all</option>
-                                        {% for month in range(1, 13) %}
-                                        <option value="{{ month }}">{{ month }}</option>
-                                        {% endfor %}
-                                    </select>
+                                <div style="display: flex; align-items: center;">
+                                    <label for="end-date" style="width:80px">End Date</label>
+                                    <div class="select-container">
+                                        <select id="end-year" class="form-select" name="end_year"
+                                            onchange="showEndMonth()">
+                                            <option value="all" selected>all</option>
+                                            {% for year in range(2010, 2024) %}
+                                            <option value="{{ year }}">{{ year }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                    <span id="end-month-span" style="display: none;">/</span>
+                                    <div class="select-container">
+                                        <select id="end-month" class="form-select" name="end_month"
+                                            style="display: none;" onchange="generateEndDays();">
+                                            <option value="all" selected>all</option>
+                                            {% for month in range(1, 13) %}
+                                            <option value="{{ month }}">{{ month }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                    <span id="end-day-span" style="display: none;">/</span>
+                                    <div class="select-container">
+                                        <select id="end-day" class="form-select" name="end_day" style="display: none;">
+                                            <!-- Day options -->
+                                        </select>
+                                    </div>
                                 </div>
-                                <span id="start-day-span" style="display: none;">/</span>
-                                <div class="select-container">
-                                    <select id="start-day" class="form-select" name="start_day" style="display: none;">
-                                        <!-- Day options -->
-                                    </select>
-                                </div>
-                            </div>
-                            <div style="display: flex; align-items: center;">
-                                <label for="end-date" style="width:80px">End Date</label>
-                                <div class="select-container">
-                                    <select id="end-year" class="form-select" name="end_year" onchange="showEndMonth()">
-                                        <option value="all" selected>all</option>
-                                        {% for year in range(2010, 2024) %}
-                                        <option value="{{ year }}">{{ year }}</option>
-                                        {% endfor %}
-                                    </select>
-                                </div>
-                                <span id="end-month-span" style="display: none;">/</span>
-                                <div class="select-container">
-                                    <select id="end-month" class="form-select" name="end_month" style="display: none;"
-                                        onchange="generateEndDays();">
-                                        <option value="all" selected>all</option>
-                                        {% for month in range(1, 13) %}
-                                        <option value="{{ month }}">{{ month }}</option>
-                                        {% endfor %}
-                                    </select>
-                                </div>
-                                <span id="end-day-span" style="display: none;">/</span>
-                                <div class="select-container">
-                                    <select id="end-day" class="form-select" name="end_day" style="display: none;">
-                                        <!-- Day options -->
-                                    </select>
-                                </div>
-                            </div>
-                            <button class="btn btn-outline-success" type="submit">Search</button>
-                        </form>
+                                <button class="btn btn-outline-success" type="submit">Search</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
 
-    <div class="ms-5 mt-3" style="width: 60vw">
+        <div class="p-3 mt-3" style="width: 100%;">
 
-        <!-- Repeat this div for each search result -->
-        {% for result in results %}
-        <div class="card card-hover">
-            <div class="card-body">
-                <a href="{{ result.url }}" class="card-title result-title">{{ result.title }}</a>
-                <p class="card-subtitle result-date">{{ result.date }}</p>
-                {% if result.containimg == 1 %}
-                <div class="row">
-                    <div class="col-3">
+            <!-- Repeat this div for each search result -->
+            {% for result in results %}
+            <div class="card card-hover">
+                <div class="card-body">
+                    <a href="{{ result.url }}" class="card-title result-title">{{ result.title }}</a>
+                    <p class="card-subtitle result-date">{{ result.date }}</p>
+                    {% if result.containimg == 1 %}
+                    <div class="row">
+                        <div class="col-3">
 
-                        <img src="{{ result.imgurl }}" class="card-img-top" alt="...">
+                            <img src="{{ result.imgurl }}" class="card-img-top" alt="...">
+                        </div>
+                        <div class="col-9">
+                            <p class="card-text result-content">{{ result.content }}</p>
+                        </div>
                     </div>
-                    <div class="col-9">
-                        <p class="card-text result-content">{{ result.content }}</p>
-                    </div>
+                    {% else %}
+                    <p class="card-text result-content">{{ result.content }}</p>
+                    {% endif %}
                 </div>
-                {% else %}
-                <p class="card-text result-content">{{ result.content }}</p>
-                {% endif %}
             </div>
+            {% endfor %}
         </div>
-        {% endfor %}
-    </div>
 
-    <nav aria-label="Page navigation example">
-        <ul class="pagination justify-content-center">
-            <!-- First page -->
-            {% if current_page > 1 %}
-            {% if filt == 1 %}
-            <li class="page-item"><a class="page-link"
-                    href="{{ url_for('show_result', keyword=keyword, category=category, page=1, filt=1, start_year=start_year, start_month=start_month, start_day=start_day, end_year=end_year, end_month=end_month, end_day=end_day) }}">1</a>
-            </li>
-            {% else %}
-            <li class="page-item"><a class="page-link"
-                    href="{{ url_for('show_result', keyword=keyword, category=category, page=1, filt=0) }}">1</a></li>
-            {% endif %}
-            {% endif %}
-
-            <!-- Ellipsis if necessary -->
-            {% if current_page > 3 %}
-            <li class="page-item disabled"><a class="page-link">...</a></li>
-            {% endif %}
-
-            <!-- Previous page -->
-            {% if current_page > 2 %}
-            {% if filt == 1 %}
-            <li class="page-item"><a class="page-link"
-                    href="{{ url_for('show_result', keyword=keyword, category=category, page=current_page-1, filt=1, start_year=start_year, start_month=start_month, start_day=start_day, end_year=end_year, end_month=end_month, end_day=end_day) }}">{{
-                    current_page-1 }}</a></li>
-            {% else %}
-            <li class="page-item"><a class="page-link"
-                    href="{{ url_for('show_result', keyword=keyword, category=category, page=current_page-1, filt=0) }}">{{
-                    current_page-1 }}</a></li>
-            {% endif %}
-            {% endif %}
-
-            <!-- Current page -->
-
-            <li class="page-item active"><a class="page-link"
-                    href="{{ url_for('show_result', keyword=keyword, category=category, page=current_page) }}">{{
-                    current_page }}</a></li>
-
-
-            <!-- Next page -->
-            {% if current_page < last_page - 1 %} {% if filt==1 %} <li class="page-item"><a class="page-link"
-                    href="{{ url_for('show_result', keyword=keyword, category=category, page=current_page+1, filt=1, start_year=start_year, start_month=start_month, start_day=start_day, end_year=end_year, end_month=end_month, end_day=end_day) }}">{{
-                    current_page+1 }}</a></li>
+        <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-center">
+                <!-- First page -->
+                {% if current_page > 1 %}
+                {% if filt == 1 %}
+                <li class="page-item"><a class="page-link"
+                        href="{{ url_for('show_result', keyword=keyword, category=category, page=1, filt=1, start_year=start_year, start_month=start_month, start_day=start_day, end_year=end_year, end_month=end_month, end_day=end_day) }}">1</a>
+                </li>
                 {% else %}
                 <li class="page-item"><a class="page-link"
-                        href="{{ url_for('show_result', keyword=keyword, category=category, page=current_page+1, filt=0) }}">{{
-                        current_page+1 }}</a></li>
+                        href="{{ url_for('show_result', keyword=keyword, category=category, page=1, filt=0) }}">1</a>
+                </li>
                 {% endif %}
                 {% endif %}
 
                 <!-- Ellipsis if necessary -->
-                {% if last_page - current_page > 2 %}
+                {% if current_page > 3 %}
                 <li class="page-item disabled"><a class="page-link">...</a></li>
                 {% endif %}
 
-                <!-- Last page -->
-                {% if current_page < last_page %} {% if filt==1 %} <li class="page-item"><a class="page-link"
-                        href="{{ url_for('show_result', keyword=keyword, category=category, page=last_page, filt=1, start_year=start_year, start_month=start_month, start_day=start_day, end_year=end_year, end_month=end_month, end_day=end_day) }}">{{
-                        last_page }}</a></li>
+                <!-- Previous page -->
+                {% if current_page > 2 %}
+                {% if filt == 1 %}
+                <li class="page-item"><a class="page-link"
+                        href="{{ url_for('show_result', keyword=keyword, category=category, page=current_page-1, filt=1, start_year=start_year, start_month=start_month, start_day=start_day, end_year=end_year, end_month=end_month, end_day=end_day) }}">{{
+                        current_page-1 }}</a></li>
+                {% else %}
+                <li class="page-item"><a class="page-link"
+                        href="{{ url_for('show_result', keyword=keyword, category=category, page=current_page-1, filt=0) }}">{{
+                        current_page-1 }}</a></li>
+                {% endif %}
+                {% endif %}
+
+                <!-- Current page -->
+
+                <li class="page-item active"><a class="page-link"
+                        href="{{ url_for('show_result', keyword=keyword, category=category, page=current_page) }}">{{
+                        current_page }}</a></li>
+
+
+                <!-- Next page -->
+                {% if current_page < last_page - 1 %} {% if filt==1 %} <li class="page-item"><a class="page-link"
+                        href="{{ url_for('show_result', keyword=keyword, category=category, page=current_page+1, filt=1, start_year=start_year, start_month=start_month, start_day=start_day, end_year=end_year, end_month=end_month, end_day=end_day) }}">{{
+                        current_page+1 }}</a></li>
                     {% else %}
                     <li class="page-item"><a class="page-link"
-                            href="{{ url_for('show_result', keyword=keyword, category=category, page=last_page, filt=0) }}">{{
+                            href="{{ url_for('show_result', keyword=keyword, category=category, page=current_page+1, filt=0) }}">{{
+                            current_page+1 }}</a></li>
+                    {% endif %}
+                    {% endif %}
+
+                    <!-- Ellipsis if necessary -->
+                    {% if last_page - current_page > 2 %}
+                    <li class="page-item disabled"><a class="page-link">...</a></li>
+                    {% endif %}
+
+                    <!-- Last page -->
+                    {% if current_page < last_page %} {% if filt==1 %} <li class="page-item"><a class="page-link"
+                            href="{{ url_for('show_result', keyword=keyword, category=category, page=last_page, filt=1, start_year=start_year, start_month=start_month, start_day=start_day, end_year=end_year, end_month=end_month, end_day=end_day) }}">{{
                             last_page }}</a></li>
-                    {% endif %}
-                    {% endif %}
-        </ul>
-    </nav>
+                        {% else %}
+                        <li class="page-item"><a class="page-link"
+                                href="{{ url_for('show_result', keyword=keyword, category=category, page=last_page, filt=0) }}">{{
+                                last_page }}</a></li>
+                        {% endif %}
+                        {% endif %}
+            </ul>
+        </nav>
+    </div>
 
     <script>
         function showStartMonth() {

@@ -31,7 +31,7 @@ class SearchResult:
             self.imgurl = "https://" + self.imgurl
 
 class ImageResult:
-    def __init__(self, title, url, imgurl="https://ts1.cn.mm.bing.net/th/id/R-C.4238b83e04d9ff3d26c2b215418910b1?rik=xQW8isECi2i9SQ&riu=http%3a%2f%2fimages.qiecdn.com%2fnews%2f20220422%2faHR0cDovL2luZXdzLmd0aW1nLmNvbS9uZXdzYXBwX21hdGNoLzAvMTQ3ODI3NDcxNjAvMA&ehk=ZeWRVuE5FZQT%2fj2m9cCXNHofN9NKnIWTsPupEJST4J0%3d&risl=&pid=ImgRaw&r=0"):
+    def __init__(self, title, url="https://example.com", imgurl="https://ts1.cn.mm.bing.net/th/id/R-C.4238b83e04d9ff3d26c2b215418910b1?rik=xQW8isECi2i9SQ&riu=http%3a%2f%2fimages.qiecdn.com%2fnews%2f20220422%2faHR0cDovL2luZXdzLmd0aW1nLmNvbS9uZXdzYXBwX21hdGNoLzAvMTQ3ODI3NDcxNjAvMA&ehk=ZeWRVuE5FZQT%2fj2m9cCXNHofN9NKnIWTsPupEJST4J0%3d&risl=&pid=ImgRaw&r=0"):
         '''
         ImageResult is a class with attributes:
         title: string
@@ -95,6 +95,8 @@ def Image4ImageResult(filename):
         imgurl = imgurl[26:]
         imgurl = imgurl.replace("\\", "/")
         image = image[1]
+        if image[2] == "未找到标题":
+            continue
         ret.append(ImageResult(image[2], image[1], imgurl))
         
     return ret

@@ -35,21 +35,25 @@
             </div>
         </div>
     </nav>
+    <div class="body-wrapper">
 
-    <div class="container mt-3">
-        <h2>Try searching image for image by harnessing the power of AI</h2>
-    </div>
 
-    <div class="container mt-5">
-        <div class="d-flex flex-column align-items-center">
-            <div id="preview" class="mb-3 square"></div>
-            <form action="/upload" method="POST" enctype="multipart/form-data" class="mb-3 text-center">
-                <input type="file" id="imageUpload" name="file" accept="image/*" style="display: none;">
-                <button type="button" class="btn btn-primary"
-                    onclick="document.getElementById('imageUpload').click();">上传图片</button>
-                <button type="submit" class="btn btn-primary">搜索</button>
-            </form>
+        <div class="container mt-3">
+            <h2>Try searching image for image by harnessing the power of AI</h2>
+        </div>
+        <div class="img-search-wrapper">
+            <div class="container mt-5">
+                <div class="d-flex flex-column align-items-center">
+                    <div id="preview" class="mb-3 square"></div>
+                    <form action="/upload" method="POST" enctype="multipart/form-data" class="mb-3 text-center">
+                        <input type="file" id="imageUpload" name="file" accept="image/*" style="display: none;">
+                        <button type="button" class="btn btn-primary"
+                            onclick="document.getElementById('imageUpload').click();">上传图片</button>
+                        <button type="submit" class="btn btn-primary">搜索</button>
+                    </form>
 
+                </div>
+            </div>
         </div>
     </div>
 

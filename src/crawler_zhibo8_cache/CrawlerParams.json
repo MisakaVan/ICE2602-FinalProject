@@ -1,0 +1,9 @@
+{
+  "directory": "./crawler_zhibo8_cache",
+  "max_queue_size": 4000,
+  "max_workers": 8,
+  "interval_ms": 4000,
+  "filter_config": "zhibo8",
+  "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.1.2 Safari/605.1.15",
+  "queue": []
+}

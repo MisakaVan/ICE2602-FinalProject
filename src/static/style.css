@@ -3,5 +3,15 @@
     --bs-primary-rgb: 26, 49, 81;
 }
 
+body {
+    background-color: #CCCCCC; /* This is a shade of gray */
+}
 
+.body-wrapper {
+    position: absolute;
+    background-color: #E9E9E9;
+    width: 80%;
+    margin: 0 10%;
+    padding: 0;
+}
 

@@ -8,3 +8,20 @@
   background-repeat: no-repeat;
   background-position: center;
 }
+
+.img-search-wrapper {
+  padding: 10px;
+  border-radius: 12px;
+  margin-top: 30px;
+  margin-left: 25%;
+  margin-right: 25%;
+  margin-bottom: 30px;
+  background-color: white;
+  border-style: dashed;
+  transition: box-shadow 0.3s ease-in-out, border 0.3s ease-in-out;
+}
+
+.img-search-wrapper:hover {
+  border: 1px dashed black;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}

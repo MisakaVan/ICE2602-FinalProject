@@ -50,45 +50,48 @@
             </form>
         </div>
     </nav>
+    <div class="body-wrapper">
 
-    {% if imageinput == 0 %}
-    <div class="search-container text-center text-white ms-5 mt-3">
-        <form action="{{ url_for('show_result') }}" enctype="multipart/form-data" class="d-flex justify-content-end">
+        {% if imageinput == 0 %}
+        <div class="search-container text-center text-white ms-3 mt-3">
+            <form action="{{ url_for('show_result') }}" enctype="multipart/form-data"
+                class="d-flex justify-content-end">
 
-            <input type="text" name="keyword" placeholder="Search...">
-            <input type="submit" value="">
-        </form>
-    </div>
+                <input type="text" name="keyword" placeholder="Search...">
+                <input type="submit" value="">
+            </form>
+        </div>
 
-    <div class="ms-5 mt-3" style="width: 50vw;">
-        <h3>Searching Result for<span>"{{ keyword }}"</span></h3>
-    </div>
+        <div class="ms-3 mt-3" style="width: 50vw;">
+            <h3>Searching Result for<span>"{{ keyword }}"</span></h3>
+        </div>
 
-    {% endif %}
+        {% endif %}
 
-    {% if imageinput == 1 %}
-    <div class="container">
-        <div class="row g-4 m-4">
-            <div class="col-md d-flex flex-column justify-content-center">
-                <p class="text">Search Result for:</p>
-                <img src="{{ url_for('static', filename='upload/' + filename) }}" alt="Image sample"
-                    class="mb-3 upload">
+        {% if imageinput == 1 %}
+        <div class="container">
+            <div class="row g-4 m-4">
+                <div class="col-md d-flex flex-column justify-content-center">
+                    <p class="text">Search Result for:</p>
+                    <img src="{{ url_for('static', filename='upload/' + filename) }}" alt="Image sample"
+                        class="mb-3 upload">
+                </div>
             </div>
         </div>
-    </div>
-    {% endif %}
+        {% endif %}
 
-    <script src="static/jquery/jquery-3.7.1.min.js"></script>
-    <div id="results" class="container mt-3">
-        <!-- Image results will be inserted here -->
-        {% for result in results %}
-        <div class="image-result">
-            <img src="{{ result.imgurl }}" alt="Image result">
-            <a href="{{ result.url }}" class="text-deco">{{ result.title }}</a>
+
+        <div id="results" class="container mt-3">
+            <!-- Image results will be inserted here -->
+            {% for result in results %}
+            <div class="image-result">
+                <img src="{{ result.imgurl }}" alt="Image result">
+                <a href="{{ result.url }}" class="text-deco">{{ result.title }}</a>
+            </div>
+            {% endfor %}
         </div>
-        {% endfor %}
     </div>
-
+    <script src="static/jquery/jquery-3.7.1.min.js"></script>
     <script>
         $("#imageUpload").change(function () {
             var reader = new FileReader();

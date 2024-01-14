@@ -68,7 +68,7 @@
 
 a.result-title {
     text-decoration: none;
-    color: black;
+    color: #1a3151;
 }
 
 a.result-title:hover {
@@ -76,12 +76,13 @@ a.result-title:hover {
 }
 
 a.result-title:visited {
-    color: blue;
+    color: #1D75A3;
 }
 
 .card-hover {
     border:none;
     transition: box-shadow 0.1s ease-in-out, border 0.1s ease-in-out;
+    margin-bottom: 5px;
 }
 
 .card-hover:hover {
