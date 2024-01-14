@@ -1,16 +1,22 @@
-import sys, os, lucene
 import math
+import os
+import sys
+
+import lucene
+from flask import jsonify
 from java.io import File
 from org.apache.lucene.analysis.cjk import CJKAnalyzer
 from org.apache.lucene.index import DirectoryReader
 from org.apache.lucene.queryparser.classic import QueryParser
+from org.apache.lucene.search import (BooleanClause, BooleanQuery, Explanation,
+                                      IndexSearcher)
 from org.apache.lucene.store import SimpleFSDirectory
-from org.apache.lucene.search import IndexSearcher
 from org.apache.lucene.util import Version
-from org.apache.pylucene.search.similarities import PythonSimilarity, PythonClassicSimilarity
+from org.apache.pylucene.search.similarities import (PythonClassicSimilarity,
+                                                     PythonSimilarity)
+
 
 class SimpleSimilarity(PythonClassicSimilarity):
-
     def lengthNorm(self, numTerms):
         return 1/math.sqrt(numTerms)
 
@@ -26,53 +32,46 @@ class SimpleSimilarity(PythonClassicSimilarity):
     def idfExplain(self, collectionStats, termStats):
         return Explanation.match(self.idf(termStats.docFreq(),collectionStats.numDocs()), "inexplicable", [])
 
+def search_documents(keyword, searcher, analyzer):
+    result = []
+    print("Searching for:", keyword)
 
-def run(searcher, analyzer):
-    while True:
-        print()
-        print("Hit enter with no input to quit.")
-        command = input("Query:")
-        if command == '':
-            return
+    # 为内容字段创建查询
+    query = QueryParser("content", analyzer).parse(keyword)
+    scoreDocs = searcher.search(query, 50).scoreDocs
 
-        print()
-        print("Searching for:", command)
-        query = QueryParser("content", analyzer).parse(command)
-        scoreDocs = searcher.search(query, 50).scoreDocs
-        print("%s total matching documents." % len(scoreDocs))
+    # for scoreDoc in scoreDocs:
+    for i, scoreDoc in enumerate(scoreDocs):
+        doc = searcher.doc(scoreDoc.doc)
+        try:
+            document = {
+                "url": doc.get("url"),
+                "title": doc.get("title"),
+                "date": doc.get("date"),
+                "content": doc.get("content"),
+                "First Image": doc.get("img_first"),
+                "All Images": doc.get("img_all")
+            }
+            result.append(document)
+        except:
+            continue
 
-        for i, scoreDoc in enumerate(scoreDocs):
-            doc = searcher.doc(scoreDoc.doc)
-            try:
-                print("url:", doc.get("url"))
-                print()
-                print("title:", doc.get("title"))
-                print()
-                print("date:", doc.get("date"))
-                print()
-                print("content:", doc.get("content"))
-                print()
-                print("Image URLs:")
-                print()
-                print("First Image:", doc.get("img_first"))
-                print()
-                print("All Images:", doc.get("img_all"))
-                print()
-                
-                print()
-                print('------------------------------------------')
-                print()
-            except:
-                continue
+    return result
 
-if __name__ == '__main__':
-    STORE_DIR = "myIndex"  # 指定新创建的Index文件夹路径
-    lucene.initVM(vmargs=['-Djava.awt.headless=true'])
-    print('lucene', lucene.VERSION)
+def search_api(keyword):
+
+    vm_env.attachCurrentThread()
     directory = SimpleFSDirectory(File(STORE_DIR).toPath())
     searcher = IndexSearcher(DirectoryReader.open(directory))
-    # 设置新的相似度计算方法
     searcher.setSimilarity(SimpleSimilarity())
     analyzer = CJKAnalyzer()
-    run(searcher, analyzer)
+
+    result = search_documents(keyword, searcher, analyzer)
+
     del searcher
+    vm_env.detachCurrentThread()
+
+    return jsonify({"results": result})
+
+vm_env = lucene.initVM(vmargs=['-Djava.awt.headless=true'])
+STORE_DIR = "myIndex"
