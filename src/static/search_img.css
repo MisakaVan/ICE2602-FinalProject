@@ -2,26 +2,21 @@
   width: 30vw;  /* Adjust this value to change the size of the square */
   height: 0;
   padding-bottom: 30vw;  /* This should be the same as width */
-  background-color: rgba(128, 128, 128, 0.5);
+  background-color: white;
   background-image: url("img/file-earmark-image.svg");
   background-size: 25%;
   background-repeat: no-repeat;
   background-position: center;
-}
-
-.img-search-wrapper {
-  padding: 10px;
-  border-radius: 12px;
-  margin-top: 30px;
-  margin-left: 25%;
-  margin-right: 25%;
-  margin-bottom: 30px;
-  background-color: white;
   border-style: dashed;
-  transition: box-shadow 0.3s ease-in-out, border 0.3s ease-in-out;
+  transition: box-shadow 0.1s ease-in-out, border 0.1s ease-in-out;
+  border-radius: 12px;
 }
 
-.img-search-wrapper:hover {
+.square:hover {
   border: 1px dashed black;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.image-search-wrapper {
+  margin-bottom: 15%;
 }

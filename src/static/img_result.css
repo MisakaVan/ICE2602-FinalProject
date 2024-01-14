@@ -107,7 +107,7 @@
 
 a.text-deco {
     text-decoration: none;
-    color: black;
+    color: #1a3151;
 }
 
 a.text-deco:hover {
@@ -115,7 +115,7 @@ a.text-deco:hover {
 }
 
 a.text-deco:visited {
-    color: blue;
+    color: #1D75A3;
 }
 
 .text-deco {
