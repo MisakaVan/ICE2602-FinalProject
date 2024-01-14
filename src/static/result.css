@@ -78,3 +78,13 @@ a.result-title:hover {
 a.result-title:visited {
     color: blue;
 }
+
+.card-hover {
+    border:none;
+    transition: box-shadow 0.1s ease-in-out, border 0.1s ease-in-out;
+}
+
+.card-hover:hover {
+    border: 1px solid gray;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+}

@@ -1,17 +1,17 @@
 # SJTU EE208
 
 #from searchIndex import HtmlIndexSearcher
-import hashlib
+
 import random
-import string
 
 from flask import Flask, redirect, render_template, request, url_for
-from markupsafe import escape
+
+from FaceRec_Searcher import find_similar_images
 
 app = Flask(__name__)
 
 class SearchResult:
-    def __init__(self, title, url="https://www.example.com", date="2023-12-17", content="news content here "*10, containimg=0, filename="sample1.jpg"):
+    def __init__(self, title, url="https://www.example.com", date="2023-12-17", content="news content here "*10, containimg=0, imgurl="https://ts1.cn.mm.bing.net/th/id/R-C.4238b83e04d9ff3d26c2b215418910b1?rik=xQW8isECi2i9SQ&riu=http%3a%2f%2fimages.qiecdn.com%2fnews%2f20220422%2faHR0cDovL2luZXdzLmd0aW1nLmNvbS9uZXdzYXBwX21hdGNoLzAvMTQ3ODI3NDcxNjAvMA&ehk=ZeWRVuE5FZQT%2fj2m9cCXNHofN9NKnIWTsPupEJST4J0%3d&risl=&pid=ImgRaw&r=0"):
         '''
         SearchResult is a class with attributes:
         title: string
@@ -26,19 +26,22 @@ class SearchResult:
         self.date = date
         self.content = content
         self.containimg = containimg
-        self.filename = filename
+        self.imgurl = imgurl
+        if self.imgurl[0:4] != "http":
+            self.imgurl = "https://" + self.imgurl
 
 class ImageResult:
-    def __init__(self, title, url="https://www.example.com", filename="sample1.jpg"):
+    def __init__(self, title, url, imgurl="https://ts1.cn.mm.bing.net/th/id/R-C.4238b83e04d9ff3d26c2b215418910b1?rik=xQW8isECi2i9SQ&riu=http%3a%2f%2fimages.qiecdn.com%2fnews%2f20220422%2faHR0cDovL2luZXdzLmd0aW1nLmNvbS9uZXdzYXBwX21hdGNoLzAvMTQ3ODI3NDcxNjAvMA&ehk=ZeWRVuE5FZQT%2fj2m9cCXNHofN9NKnIWTsPupEJST4J0%3d&risl=&pid=ImgRaw&r=0"):
         '''
         ImageResult is a class with attributes:
         title: string
-        url: string that should be a complete url
-        filename: string that should be a relative file path under folder "static/images"
+        imgurl: string that should be a complete url
         '''
         self.title = title
         self.url = url
-        self.filename = filename
+        self.imgurl = imgurl
+        if self.imgurl[0:4] != "http":
+            self.imgurl = "https://" + self.imgurl
 
 class Date:
     def __init__(self, year, month, day):
@@ -54,7 +57,15 @@ def getResults(searchword, category):
     return: list of SearchResult
     
     '''
-    pass
+    ret = []
+    for i in range(1, 101):
+        news = SearchResult("title" + str(i))
+        news.title += searchword
+        news.title += "  " + category + "  " + str(i)
+        if random.random() > 0.5:
+            news.containimg = 1
+        ret.append(news)
+    return ret
 
 def cutResults(results, page):
     return results[10*(page-1):10*page]
@@ -65,15 +76,29 @@ def Text4ImageResult(keyword):
     keyword: string
     return: list of ImageResult
     '''
-    pass
+    ret = []
+    for i in range(1, 16):
+        news = ImageResult("title"*20 + str(i))
+        ret.append(news)
+    return ret
 
 def Image4ImageResult(filename):
     '''
-    TODO
     filename: string that is a relative file path under folder "static/upload"
     return: list of ImageResult
     '''
-    pass
+    target_image_path = "./static/upload/" + filename
+    similar_images = find_similar_images(target_image_path=target_image_path, k=30)
+    ret = []
+    for image in similar_images:
+        imgurl = image[0]
+        imgurl = imgurl[26:]
+        imgurl = imgurl.replace("\\", "/")
+        image = image[1]
+        ret.append(ImageResult(image[2], image[1], imgurl))
+        
+    return ret
+
 
 def getStartDate(start_year, start_month, start_day):
     if start_year == "all":

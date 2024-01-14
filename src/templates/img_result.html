@@ -83,7 +83,7 @@
         <!-- Image results will be inserted here -->
         {% for result in results %}
         <div class="image-result">
-            <img src="{{ url_for('static', filename='images/' + result.filename) }}" alt="Image result">
+            <img src="{{ result.imgurl }}" alt="Image result">
             <a href="{{ result.url }}" class="text-deco">{{ result.title }}</a>
         </div>
         {% endfor %}

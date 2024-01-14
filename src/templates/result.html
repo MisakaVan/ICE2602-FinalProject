@@ -157,7 +157,7 @@
 
         <!-- Repeat this div for each search result -->
         {% for result in results %}
-        <div class="card" style="border:none;">
+        <div class="card card-hover">
             <div class="card-body">
                 <a href="{{ result.url }}" class="card-title result-title">{{ result.title }}</a>
                 <p class="card-subtitle result-date">{{ result.date }}</p>
@@ -165,8 +165,7 @@
                 <div class="row">
                     <div class="col-3">
 
-                        <img src="{{ url_for('static', filename='images/' + result.filename) }}" class="card-img-top"
-                            alt="...">
+                        <img src="{{ result.imgurl }}" class="card-img-top" alt="...">
                     </div>
                     <div class="col-9">
                         <p class="card-text result-content">{{ result.content }}</p>
