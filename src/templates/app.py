@@ -7,6 +7,7 @@ import random
 from flask import Flask, redirect, render_template, request, url_for
 
 from FaceRec_Searcher import find_similar_images
+from SearchFiles import search_api
 
 app = Flask(__name__)
 
@@ -57,13 +58,38 @@ def getResults(searchword, category):
     return: list of SearchResult
     
     '''
+    # ret = []
+    # for i in range(1, 101):
+    #     news = SearchResult("title" + str(i))
+    #     news.title += searchword
+    #     news.title += "  " + category + "  " + str(i)
+    #     if random.random() > 0.5:
+    #         news.containimg = 1
+    #     ret.append(news)
+    # return ret
+    results = search_api(searchword)
     ret = []
-    for i in range(1, 101):
-        news = SearchResult("title" + str(i))
-        news.title += searchword
-        news.title += "  " + category + "  " + str(i)
-        if random.random() > 0.5:
-            news.containimg = 1
+    for result in results:
+        if "sina" not in result.get("url"):
+            continue
+        if category == "csl" and "china" not in result.get("url"):
+            continue
+        if category == "epl" and "premierleague" not in result.get("url"):
+            continue
+        if category == "bundesliga" and "bundesliga" not in result.get("url"):
+            continue
+        if category == "seriea" and "seriea" not in result.get("url"):
+            continue
+        if category == "ligue1" and "ligue1" not in result.get("url"):
+            continue
+        if category == "laliga" and "laliga" not in result.get("url"):
+            continue
+        if category == "ucl" and "championsleague" not in result.get("url"):
+            continue
+        if result.get("First Image") == "未找到图片":
+            news = SearchResult(result.get("title"), result.get("url"), result.get("date"), result.get("content"), 0)
+        else:
+            news = SearchResult(result.get("title"), result.get("url"), result.get("date"), result.get("content"), 1, result.get("First Image"))
         ret.append(news)
     return ret
 
@@ -76,10 +102,26 @@ def Text4ImageResult(keyword):
     keyword: string
     return: list of ImageResult
     '''
+    # ret = []
+    # for i in range(1, 16):
+    #     news = ImageResult("title"*20 + str(i))
+    #     ret.append(news)
+    # return ret
+    results = search_api(keyword)
+    cnt = 0
     ret = []
-    for i in range(1, 16):
-        news = ImageResult("title"*20 + str(i))
-        ret.append(news)
+    for result in results:
+        if result.get("First Image") == "未找到图片":
+            continue
+        all_images = result.get("All Images").split('\n')
+        for image in all_images:
+            if image == "":
+                continue
+            cnt += 1
+            if cnt > 30:
+                break
+            news = ImageResult(result.get("title"), result.get("url"), image)
+            ret.append(news)
     return ret
         
 
