@@ -1,10 +1,21 @@
 body {
-  margin: 0;
-  padding: 0;
-  font-family: sans-serif;
-  background-image: url("static/img/liverpool.jpg");
+  font-family: Arial, sans-serif;
+  position: relative;
+}
+
+body::after{
+  content: "";
+  background-image: url("img/liverpool.png");
   background-size: cover;
-  background-repeat: no-repeat;
+  background-attachment: fixed;
+  opacity: 0.8;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  position: fixed;
+  z-index: -1; 
+
 }
 
 .search-container {
@@ -73,7 +84,7 @@ body {
   width: 100%;
   top: 0%;
   left: 25%;
-  margin-top: 200px;
+  margin-top: 150px;
 }
 
 .btn-rad {

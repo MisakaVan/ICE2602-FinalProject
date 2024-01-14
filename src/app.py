@@ -59,11 +59,10 @@ def getResults(searchword, category):
     '''
     ret = []
     for i in range(1, 101):
-        news = SearchResult("title" + str(i))
-        news.title += searchword
-        news.title += "  " + category + "  " + str(i)
+        news = SearchResult("random news title")
         if random.random() > 0.5:
             news.containimg = 1
+        news.content = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum esse qui dolorum optio, a laudantium. Iusto reprehenderit omnis quisquam fugit voluptate! Excepturi cupiditate nisi praesentium eligendi aperiam nulla, dolores possimus?"
         ret.append(news)
     return ret
 
@@ -78,7 +77,8 @@ def Text4ImageResult(keyword):
     '''
     ret = []
     for i in range(1, 16):
-        news = ImageResult("title"*20 + str(i))
+        news = ImageResult("random news title")
+        news.content = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum esse qui dolorum optio, a laudantium. Iusto reprehenderit omnis quisquam fugit voluptate! Excepturi cupiditate nisi praesentium eligendi aperiam nulla, dolores possimus?"
         ret.append(news)
     return ret
         

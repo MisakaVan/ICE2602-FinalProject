@@ -67,7 +67,9 @@ def getResults(searchword, category):
     #         news.containimg = 1
     #     ret.append(news)
     # return ret
-    results = search_api(searchword)
+
+    # results = search_api(searchword)
+    response, results = search_api(searchword)
     ret = []
     for result in results:
         if "sina" not in result.get("url"):
@@ -107,7 +109,7 @@ def Text4ImageResult(keyword):
     #     news = ImageResult("title"*20 + str(i))
     #     ret.append(news)
     # return ret
-    results = search_api(keyword)
+    response, results = search_api(keyword)
     cnt = 0
     ret = []
     for result in results:

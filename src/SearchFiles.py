@@ -71,7 +71,12 @@ def search_api(keyword):
     del searcher
     vm_env.detachCurrentThread()
 
-    return jsonify({"results": result})
+    # 保存一份result的副本
+    result_copy = result.copy()
+
+    response = jsonify({"results": result})
+
+    return response, result_copy
 
 vm_env = lucene.initVM(vmargs=['-Djava.awt.headless=true'])
 STORE_DIR = "myIndex"
